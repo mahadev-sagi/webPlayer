@@ -6,7 +6,7 @@ import Foundation
 
 class APIService {
     //
-    private let baseURL = ""
+    private let baseURL = "https://hi-animeapi.onrender.com/api/v1"
 
     // Fetches data for the home screen
     func fetchHomePageData() async throws -> HomeData {
@@ -69,6 +69,7 @@ class APIService {
         guard let url = URL(string: urlString) else { throw URLError(.badURL) }
         
         let (data, _) = try await URLSession.shared.data(from: url)
+        print("DEBUG: Raw JSON from /stream: \(String(data: data, encoding: .utf8) ?? "Invalid data")")
         let streamResponse = try JSONDecoder().decode(APIResponse<StreamData>.self, from: data)
         
         
